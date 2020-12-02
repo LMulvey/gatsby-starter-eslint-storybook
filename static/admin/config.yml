@@ -1,0 +1,43 @@
+backend:
+  name: git-gateway
+  branch: main
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
+collections:
+  - name: "articles"
+    label: "Articles"
+    folder: "/content/articles"
+    create: true
+    fields:
+      # Widgets List: https://www.netlifycms.org/docs/widgets/
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - {
+          label: "Slug",
+          name: "slug",
+          widget: "string",
+          required: true,
+          pattern:
+            [
+              "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+              "A slug can have no spaces or special characters",
+            ],
+          hint: "The slug you wish to use in the URL (articles/<slug>).",
+        }
+      - { label: "Author", name: "author", widget: "string", required: true }
+      - {
+          label: "Hero Image",
+          name: "image",
+          widget: "image",
+          allow_multiple: false,
+        }
+      - {
+          label: "Posted At",
+          name: "postedAt",
+          hint: "Time the article is posted at",
+          widget: "datetime",
+          default: "",
+          date_format: "DD.MM.YYYY",
+          time_format: "HH:mm",
+          picker_utc: false,
+        }
+      - { label: "Body", name: "body", widget: "markdown" }

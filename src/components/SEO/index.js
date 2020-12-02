@@ -19,6 +19,7 @@ function SEO({ description, lang, meta, title }) {
             title
             description
             author
+            keywords
           }
         }
       }
@@ -26,6 +27,7 @@ function SEO({ description, lang, meta, title }) {
   );
 
   const metaDescription = description || site.siteMetadata.description;
+  const metaTitle = `${title} | ${site.siteMetadata.title}`;
 
   return (
     <Helmet
@@ -40,8 +42,12 @@ function SEO({ description, lang, meta, title }) {
           content: metaDescription,
         },
         {
+          name: "keywords",
+          content: site.siteMetadata.keywords.join(","),
+        },
+        {
           property: `og:title`,
-          content: title,
+          content: metaTitle,
         },
         {
           property: `og:description`,
@@ -52,20 +58,20 @@ function SEO({ description, lang, meta, title }) {
           content: `website`,
         },
         {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
           name: `twitter:creator`,
           content: site.siteMetadata.author,
         },
         {
           name: `twitter:title`,
-          content: title,
+          content: metaTitle,
         },
         {
           name: `twitter:description`,
           content: metaDescription,
+        },
+        {
+          name: "twitter:card",
+          content: "summary",
         },
       ].concat(meta)}
     />

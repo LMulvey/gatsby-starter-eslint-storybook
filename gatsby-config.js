@@ -1,10 +1,10 @@
 module.exports = {
   siteMetadata: {
-    title: `AHS Covid-19 Response`,
-    // siteUrl: `http://19tozero.com`,
+    title: `gatsby-starter-eslint-storybook`,
+    siteUrl: `http://localhost:8000`,
     description: ``,
-    keywords: ["covid-19", "ahs", "covid", "coronavirus"],
-    author: `Alberta Health Services`,
+    keywords: ["starter"],
+    author: `Lee Mulvey`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -15,17 +15,42 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    `gatsby-transformer-remark`,
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `uploads`,
+        path: `${__dirname}/static/images/uploads`,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `netlify-articles`,
-        path: `${__dirname}/_articles`,
+        path: `${__dirname}/content/articles`,
       },
     },
-
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-relative-images`,
+            options: {
+              staticFolderName: "static",
+              include: ["image"],
+            },
+          },
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 590,
+            },
+          },
+        ],
+      },
+    },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-sitemap`,
   ],
